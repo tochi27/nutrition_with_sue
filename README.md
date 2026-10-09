@@ -83,8 +83,8 @@ Either way, you can connect a custom domain in the host's settings.
 ## Before launch checklist
 
 - [ ] **Forms:** set up EmailJS, add the three IDs to `js/main.js`, and send a test from each form (see "Set up the forms").
-- [ ] **Portfolio link:** replace every `PORTFOLIO_URL` in `index.html` with the address of Sue's portfolio site (menu, footer, and the portfolio section button).
-- [ ] **Testimonials:** replace the placeholder testimonials with real ones, shared with each client's written permission. Fake reviews are illegal under UK consumer law and go against AfN standards.
+- [ ] **Portfolio link:** currently hidden. Once Sue sends her portfolio address, uncomment the three `HIDDEN` blocks in `index.html` (menu, portfolio section button, footer) and replace `PORTFOLIO_URL` with the address.
+- [ ] **Testimonials:** the section is currently hidden (commented out in `index.html`, along with its menu link). Once Sue has real testimonials, shared with each client's written permission, replace the placeholder quotes and uncomment both. Fake reviews are illegal under UK consumer law and go against AfN standards.
 - [ ] **Portfolio stats:** confirm "70%+", "120+", and the other figures are accurate and can be evidenced.
 - [ ] **Privacy policy:** review `privacy.html`, confirm the retention periods, and pay the ICO data protection fee if required.
 - [ ] **Photos of Sue:** the hero frame currently shows an animated leaf illustration and the About panel shows a quote. To use a portrait instead, add it at `assets/sue-hero.jpg` (3:4 ratio) and follow the comment in the hero section of `index.html`.
