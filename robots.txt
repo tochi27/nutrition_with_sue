@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://nutritionwithsue.netlify.app/sitemap.xml

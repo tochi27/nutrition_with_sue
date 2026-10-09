@@ -2,7 +2,7 @@
 
 Website for Susan Emuze, Registered Associate Nutritionist (ANutr, AfN).
 
-A plain static site (HTML, CSS, and a little JavaScript) with no build step, so it can be hosted anywhere (Netlify, GitHub Pages, etc.). Bookings are made through an embedded [Calendly](https://calendly.com) calendar, and the contact and newsletter forms are sent through [EmailJS](https://www.emailjs.com), which emails each submission to Sue.
+Live at **https://nutritionwithsue.netlify.app**, hosted on Netlify, which redeploys automatically on every push to `main`. A plain static site (HTML, CSS, and a little JavaScript) with no build step. Bookings are made through an embedded [Calendly](https://calendly.com) calendar, and the contact and newsletter forms are sent through [EmailJS](https://www.emailjs.com), which emails each submission to Sue.
 
 ## Structure
 
@@ -86,10 +86,10 @@ Either way, you can connect a custom domain in the host's settings.
 - [ ] **Portfolio link:** replace every `PORTFOLIO_URL` in `index.html` with the address of Sue's portfolio site (menu, footer, and the portfolio section button).
 - [ ] **Testimonials:** replace the placeholder testimonials with real ones, shared with each client's written permission. Fake reviews are illegal under UK consumer law and go against AfN standards.
 - [ ] **Portfolio stats:** confirm "70%+", "120+", and the other figures are accurate and can be evidenced.
-- [ ] **Privacy policy:** review `privacy.html`, name the hosting provider, confirm the retention periods, and pay the ICO data protection fee if required.
+- [ ] **Privacy policy:** review `privacy.html`, confirm the retention periods, and pay the ICO data protection fee if required.
 - [ ] **Photos of Sue:** the hero frame currently shows an animated leaf illustration and the About panel shows a quote. To use a portrait instead, add it at `assets/sue-hero.jpg` (3:4 ratio) and follow the comment in the hero section of `index.html`.
 - [ ] **Email:** consider a professional address on the custom domain (for example hello@yourdomain) instead of Yahoo.
-- [ ] **Domain:** once it's set, add `<link rel="canonical">`, `og:url`, an `og:image`, and a `sitemap.xml`.
+- [ ] **Custom domain (optional):** the site is live at https://nutritionwithsue.netlify.app. If Sue gets her own domain, connect it in Netlify (**Domain management**), then replace `nutritionwithsue.netlify.app` everywhere it appears: the `<head>` of `index.html` and `privacy.html`, `robots.txt`, and `sitemap.xml`.
 
 ## Later
 
