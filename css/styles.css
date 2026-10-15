@@ -576,6 +576,21 @@ button[disabled]{opacity:.6; cursor:wait;}
 }
 .hero-frame-caption em{font-style:italic; color:#eef3e8;}
 
+/* PHOTO OF SUE (About panel) */
+.about-panel.has-photo{background:var(--sand);}
+.about-panel.has-photo img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 25%;
+  border-radius:4px;
+}
+.about-panel.has-photo::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:55%; border-radius:0 0 4px 4px;
+  background:linear-gradient(transparent, rgba(44,44,42,.78));
+}
+.about-panel.has-photo blockquote, .about-panel.has-photo cite{position:relative; z-index:1;}
+.about-panel.has-photo blockquote{color:var(--white);}
+.about-panel.has-photo cite{color:#dfe8d8;}
+.about-panel.has-photo .about-leaf{z-index:2;}
+
 /* RESPONSIVE */
 @media (max-width:1100px){
   .services-grid{grid-template-columns:1fr 1fr;}
@@ -606,6 +621,7 @@ button[disabled]{opacity:.6; cursor:wait;}
   .booking-options{display:grid; grid-template-columns:1fr 1fr;}
   .booking-option:hover{transform:translateY(-4px);}
   .about-panel{aspect-ratio:auto; min-height:280px; padding:36px;}
+  .about-panel.has-photo{aspect-ratio:4/5; min-height:0; padding:28px;}
   .about-leaf{right:16px;}
   .portfolio-grid, .blog-grid, .testi-grid{grid-template-columns:1fr;}
   .booking-steps{grid-template-columns:1fr; margin-bottom:48px;}

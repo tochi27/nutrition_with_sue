@@ -87,7 +87,6 @@ Either way, you can connect a custom domain in the host's settings.
 - [ ] **Testimonials:** the section is currently hidden (commented out in `index.html`, along with its menu link). Once Sue has real testimonials, shared with each client's written permission, replace the placeholder quotes and uncomment both. Fake reviews are illegal under UK consumer law and go against AfN standards.
 - [ ] **Portfolio stats:** confirm "70%+", "120+", and the other figures are accurate and can be evidenced.
 - [ ] **Privacy policy:** review `privacy.html`, confirm the retention periods, and pay the ICO data protection fee if required.
-- [ ] **Photos of Sue:** the hero frame currently shows an animated leaf illustration and the About panel shows a quote. To use a portrait instead, add it at `assets/sue-hero.jpg` (3:4 ratio) and follow the comment in the hero section of `index.html`.
 - [ ] **Email:** consider a professional address on the custom domain (for example hello@yourdomain) instead of Yahoo.
 - [ ] **Custom domain (optional):** the site is live at https://nutritionwithsue.netlify.app. If Sue gets her own domain, connect it in Netlify (**Domain management**), then replace `nutritionwithsue.netlify.app` everywhere it appears: the `<head>` of `index.html` and `privacy.html`, `robots.txt`, and `sitemap.xml`.
 
