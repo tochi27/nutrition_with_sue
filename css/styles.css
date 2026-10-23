@@ -371,7 +371,9 @@ button[disabled]{opacity:.6; cursor:wait;}
 .calendly-soon .calendly-soon-title{font-family:var(--serif); font-size:1.6rem; font-weight:400; color:var(--charcoal);}
 .calendly-soon p{font-size:.88rem; color:var(--muted); max-width:340px; line-height:1.7;}
 .calendly-soon .btn-primary{margin-top:8px;}
-.calendly-embed:has(.calendly-soon){height:auto; margin:0;}
+.calendly-embed:has(.calendly-soon){height:auto; margin:0; display:flex; align-items:center; justify-content:center;}
+.calendly-soon{width:100%;}
+.calendly-soon .btn-ghost{margin-top:4px;}
 .calendly-fallback{font-size:.8rem; color:var(--muted); text-align:center; position:absolute; left:0; right:0; top:100%; margin-top:12px;}
 .calendly-fallback a{color:var(--accent);}
 

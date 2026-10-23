@@ -37,14 +37,19 @@
   onScroll();
 
   // Booking: Calendly calendar, switched by the consultation picker.
-  // Paste Sue's Calendly event links between the quotes, e.g. 'https://calendly.com/sue-name/consultation'.
-  // If she has a single Calendly link, use the same link for all four.
-  // While a link is empty, visitors see a message pointing them to the contact form instead.
+  // Paste Sue's Calendly event links between the quotes.
+  // Calendly's free plan allows one active event, so only the free call is bookable for now.
+  // A consultation with an empty link shows a message steering visitors to the free call.
+  // If Sue upgrades Calendly, her other event links are:
+  //   Initial Nutrition Assessment: https://calendly.com/nutritionwithsusan/new-meeting
+  //   1:1 Coaching Package:         https://calendly.com/nutritionwithsusan/1-1-coaching-package
+  //   Group Programme:              https://calendly.com/nutritionwithsusan/group-programme
+  var FREE_CALL = 'Free Discovery Call';
   var CALENDLY = {
     'Free Discovery Call': 'https://calendly.com/nutritionwithsusan/30min',
-    'Initial Nutrition Assessment': 'https://calendly.com/nutritionwithsusan/new-meeting',
-    '1:1 Coaching Package': 'https://calendly.com/nutritionwithsusan/1-1-coaching-package',
-    'Group Programme': 'https://calendly.com/nutritionwithsusan/group-programme'
+    'Initial Nutrition Assessment': '',
+    '1:1 Coaching Package': '',
+    'Group Programme': ''
   };
   // Match the calendar to the site's colours; the cream background lets Calendly's card sit on the page.
   // hide_event_type_details removes Calendly's own details panel, since the consultation cards
@@ -69,12 +74,24 @@
   var hasAnyCalendly = Object.keys(CALENDLY).some(function (k) { return CALENDLY[k]; });
 
   function showComingSoon() {
-    embed.innerHTML =
-      '<div class="calendly-soon">' +
-        '<p class="calendly-soon-title">Online booking is coming soon</p>' +
-        '<p>In the meantime, send a request and Sue will get back to you to arrange a time.</p>' +
-        '<a href="#contact" class="btn-primary">Send a Request <span class="arrow">→</span></a>' +
-      '</div>';
+    if (CALENDLY[FREE_CALL] && currentService !== FREE_CALL) {
+      // This service isn't bookable directly: start with the free call instead
+      embed.innerHTML =
+        '<div class="calendly-soon">' +
+          '<p class="calendly-soon-title">Start with a free discovery call</p>' +
+          '<p>We’ll talk through your goals and plan your ' + currentService + ' together. ' +
+          'It’s 20 minutes, with no commitment.</p>' +
+          '<button type="button" class="btn-primary" data-pick="' + FREE_CALL + '">Book a Free Discovery Call <span class="arrow">→</span></button>' +
+          '<a href="#contact" class="btn-ghost">Or send a question first <span>→</span></a>' +
+        '</div>';
+    } else {
+      embed.innerHTML =
+        '<div class="calendly-soon">' +
+          '<p class="calendly-soon-title">Online booking is coming soon</p>' +
+          '<p>In the meantime, send a request and Sue will get back to you to arrange a time.</p>' +
+          '<a href="#contact" class="btn-primary">Send a Request <span class="arrow">→</span></a>' +
+        '</div>';
+    }
     fallbackLink.parentNode.hidden = true;
   }
 
@@ -120,15 +137,26 @@
     loadCalendly();
   }
 
+  function selectService(option) {
+    options.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+    option.setAttribute('aria-pressed', 'true');
+    currentService = option.getAttribute('data-name');
+    selectedLabel.textContent = currentService;
+    selectedMeta.textContent = option.querySelector('.booking-option-tag').textContent;
+    if (hasAnyCalendly) loadCalendly();
+    showCalendar();
+  }
+
+  // "Book a Free Discovery Call" button inside the message switches to the free call
+  embed.addEventListener('click', function (e) {
+    var pick = e.target.closest('[data-pick]');
+    if (!pick) return;
+    selectService(document.querySelector('.booking-option[data-name="' + pick.getAttribute('data-pick') + '"]'));
+  });
+
   options.forEach(function (option) {
     option.addEventListener('click', function () {
-      options.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
-      option.setAttribute('aria-pressed', 'true');
-      currentService = option.getAttribute('data-name');
-      selectedLabel.textContent = currentService;
-      selectedMeta.textContent = option.querySelector('.booking-option-tag').textContent;
-      if (hasAnyCalendly) loadCalendly();
-      showCalendar();
+      selectService(option);
       // On phones the calendar sits below the list, so bring it into view
       if (singleColumn.matches) {
         bookingCard.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });

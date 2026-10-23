@@ -62,13 +62,11 @@ If a form shows an error, press F12 and open the **Console** tab: the reason fro
 
 ## Set up bookings (Calendly)
 
-The "Book a Consultation" section shows Sue's Calendly calendar. Clicking a consultation on the left loads that consultation's calendar on the right.
+The "Book a Consultation" section shows Sue's Calendly calendar.
 
-1. In Calendly, create an **event type** for each consultation: Free Discovery Call (20 min), Initial Nutrition Assessment (60 min), 1:1 Coaching Package, and Group Programme. If Sue prefers a single booking page, one event type is fine.
-2. For each event type, choose **Copy link**. It looks like `https://calendly.com/sue-name/discovery-call`.
-3. Open `js/main.js`, find the `CALENDLY` block near the top, and paste each link next to its consultation. With a single link, paste the same one for all four.
-4. Under each event type's **Invitee questions**, add anything Sue wants to know before a session, such as health goals or a phone number. Calendly emails the answers to her with each booking.
-5. Test: run `npm run dev`, click each consultation, and check that the right calendar appears.
+**Current setup (Calendly free plan, one active event):** only the **Free Discovery Call** (`https://calendly.com/nutritionwithsusan/30min`) is bookable. Clicking any other consultation shows a short "Start with a free discovery call" message, with a button that switches to the free call's calendar. In Calendly, the free call event must be the one that's switched **on** under **Scheduling → Event Types**.
+
+**If Sue upgrades Calendly:** switch her other events back on, then paste their links into the `CALENDLY` block in `js/main.js`. They're listed in a comment just above it. Each consultation then gets its own calendar again.
 
 The calendar loads only when a visitor scrolls near the booking section, so it doesn't slow the rest of the page down. If Calendly can't load, a "Book on Calendly" link appears underneath.
 
