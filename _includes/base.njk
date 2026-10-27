@@ -1,0 +1,40 @@
+{#- Base layout for blog pages. Set `title`, `description`, and optionally `ogImage` / `ogType`. -#}
+{%- set pageUrl = page.url | absoluteUrl(site.url) -%}
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }} | {{ site.name }}</title>
+<meta name="description" content="{{ description }}">
+<meta name="theme-color" content="#f9f6f0">
+<link rel="canonical" href="{{ pageUrl }}">
+<meta property="og:type" content="{{ ogType or 'website' }}">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ pageUrl }}">
+<meta property="og:image" content="{{ (ogImage or '/assets/og-image.png') | absoluteUrl(site.url) }}">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+<script>document.documentElement.classList.add('js');</script>
+{%- block head %}{% endblock %}
+</head>
+<body class="{{ bodyClass or '' }}">
+
+{% include "header.njk" %}
+
+<main id="main">
+{%- block content %}{% endblock %}
+</main>
+
+{% include "footer.njk" %}
+
+<script src="/js/main.js" defer></script>
+</body>
+</html>

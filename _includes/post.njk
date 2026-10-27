@@ -1,0 +1,78 @@
+{%- extends "base.njk" -%}
+{%- set description = summary -%}
+{%- set ogType = "article" -%}
+{%- set ogImage = image if image else null -%}
+{%- set bodyClass = "page-blog" -%}
+
+{%- block head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ title | dump | safe }},
+  "description": {{ summary | dump | safe }},
+  "datePublished": "{{ page.date | isoDate }}",
+  "author": { "@type": "Person", "name": "Susan Emuze", "jobTitle": "Registered Associate Nutritionist" },
+  "publisher": { "@type": "Organization", "name": "{{ site.name }}" },
+  "mainEntityOfPage": "{{ page.url | absoluteUrl(site.url) }}"
+}
+</script>
+{%- endblock %}
+
+{%- block content %}
+<article class="post">
+  <header class="post-header">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> <span aria-hidden="true">/</span> <a href="/blog/">Blog</a></nav>
+      <h1 class="reveal">{{ title }}</h1>
+      <p class="post-meta reveal">By {{ site.author }} · <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time> · {{ content | readingTime }}</p>
+    </div>
+  </header>
+
+  {%- if image %}
+  <figure class="post-hero container reveal">
+    <img src="{{ image }}" alt="{{ image_alt or '' }}">
+  </figure>
+  {%- endif %}
+
+  <div class="container post-layout">
+    <div class="prose">
+      {{ content | safe }}
+    </div>
+
+    <aside class="post-aside">
+      <div class="author-card">
+        <img src="/assets/afn-logo.png" alt="AfN Registered Associate Nutritionist logo" class="author-afn" width="400" height="283" loading="lazy">
+        <p class="author-name">Susan Emuze</p>
+        <p class="author-role">Registered Associate Nutritionist (ANutr) · MSc Applied Nutrition</p>
+        <p>Evidence-based nutrition coaching that fits your real life.</p>
+        <a href="/#about" class="btn-ghost">About Sue <span>→</span></a>
+      </div>
+    </aside>
+  </div>
+
+  <div class="container post-cta-wrap">
+    <div class="post-cta reveal">
+      <div>
+        <p class="post-cta-title">Want help putting this into practice?</p>
+        <p>Book a free 20-minute discovery call to talk through your goals.</p>
+      </div>
+      <a href="/#booking" class="btn-primary">Book a Free Call <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</article>
+
+{%- set others = (collections.posts | exceptUrl(page.url)).slice(0, 2) -%}
+{%- if others.length %}
+<section class="section more-posts">
+  <div class="container">
+    <p class="section-tag">Keep reading</p>
+    <div class="blog-grid blog-grid--two">
+      {%- for post in others %}
+      {% include "post-card.njk" %}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+{%- endif %}
+{%- endblock %}

@@ -1,0 +1,56 @@
+---
+permalink: /blog/
+title: Blog
+description: Practical, evidence-based nutrition articles from Susan Emuze, Registered Associate Nutritionist. Simple habits for eating well, without fad diets.
+bodyClass: page-blog
+---
+{%- extends "base.njk" -%}
+{%- block content %}
+<header class="blog-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> <span aria-hidden="true">/</span> Blog</nav>
+    <p class="section-tag reveal">From the Blog</p>
+    <h1 class="reveal">Eat smart, <em>live well</em></h1>
+    <p class="blog-hero-sub reveal">Practical, evidence-based articles on food and habits, written by Sue.</p>
+  </div>
+</header>
+
+<section class="section blog-index">
+  <div class="container blog-index-layout">
+    <div class="blog-list">
+      <p class="section-tag">Blog articles</p>
+      {%- for post in collections.posts %}
+      {% set wide = true %}{% include "post-card.njk" %}
+      {%- else %}
+      <p class="muted">New articles are on their way. Check back soon.</p>
+      {%- endfor %}
+    </div>
+
+    <aside class="blog-sidebar">
+      <div class="sidebar-card reveal from-right">
+        <p class="sidebar-title">Free resources</p>
+        <a class="resource" href="/downloads/eat-smart-live-well.pdf" download="Eat-Smart-Live-Well-NutritionWithSue.pdf">
+          <span class="resource-icon" aria-hidden="true">📖</span>
+          <span><strong>Eat Smart, Live Well</strong><small>Free ebook · 5 simple habits</small></span>
+        </a>
+        <a class="resource" href="/downloads/food-diary.pdf" download="NutritionWithSue-Food-Diary.pdf">
+          <span class="resource-icon" aria-hidden="true">📝</span>
+          <span><strong>7-Day Food Diary</strong><small>Free printable · PDF</small></span>
+        </a>
+      </div>
+
+      <div class="sidebar-card sidebar-card--green reveal from-right">
+        <p class="sidebar-title">Get new articles first</p>
+        <p>Practical food and habit tips, straight to your inbox.</p>
+        <a href="/#newsletter" class="btn-primary">Join the newsletter</a>
+      </div>
+
+      <div class="sidebar-card reveal from-right">
+        <p class="sidebar-title">Ready to start?</p>
+        <p>Book a free 20-minute discovery call. No pressure, no commitment.</p>
+        <a href="/#booking" class="btn-ghost">Book a free call <span>→</span></a>
+      </div>
+    </aside>
+  </div>
+</section>
+{%- endblock %}

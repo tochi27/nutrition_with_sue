@@ -1,0 +1,18 @@
+{# One blog post card. Expects `post`; add `wide = true` for the horizontal layout on the blog page. #}
+<article class="post-card{% if wide %} post-card--wide{% endif %} reveal zoom">
+  <a class="post-card-link" href="{{ post.url }}">
+    <div class="post-thumb">
+      {%- if post.data.image %}
+      <img src="{{ post.data.image }}" alt="{{ post.data.image_alt or '' }}" loading="lazy">
+      {%- else %}
+      <span class="post-thumb-fallback" aria-hidden="true">{{ post.data.emoji or "🌿" }}</span>
+      {%- endif %}
+    </div>
+    <div class="post-body">
+      <p class="post-meta"><time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time> · {{ post.templateContent | readingTime }}</p>
+      <h3>{{ post.data.title }}</h3>
+      <p class="post-summary">{{ post.data.summary }}</p>
+      <span class="post-more">Continue reading <span class="arrow" aria-hidden="true">→</span></span>
+    </div>
+  </a>
+</article>

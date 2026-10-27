@@ -1,0 +1,44 @@
+# Pages CMS (https://pagescms.org): the browser editor Sue uses to write blog posts.
+# Each post is saved as a Markdown file in blog/posts/; Netlify rebuilds the site when it changes.
+media:
+  input: assets/blog
+  output: /assets/blog
+
+content:
+  - name: posts
+    label: Blog posts
+    type: collection
+    path: blog/posts
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      primary: title
+      fields: [title, date]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Publish date
+        description: Posts are listed newest first.
+        type: date
+        required: true
+      - name: summary
+        label: Summary
+        description: One or two sentences, shown on the blog cards and in Google results.
+        type: text
+        required: true
+      - name: image
+        label: Cover photo (optional)
+        description: Wide photos work best. Without one, the card shows a green leaf panel.
+        type: image
+      - name: image_alt
+        label: Cover photo description
+        description: A short description of the photo, for people using screen readers.
+        type: string
+      - name: body
+        label: Article
+        type: rich-text

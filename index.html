@@ -1,3 +1,7 @@
+---
+permalink: /
+eleventyExcludeFromCollections: true
+---
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
@@ -48,30 +52,7 @@
 </head>
 <body>
 
-<a class="skip-link" href="#main">Skip to content</a>
-
-<header class="site-header" id="siteHeader">
-  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
-  <nav aria-label="Main">
-    <a href="#top" class="nav-logo">Nutrition <span>with Sue</span></a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#ebook">Ebook</a></li>
-      <li><a href="#blog">Blog</a></li>
-      <li><a href="#food-diary">Food Diary</a></li>
-      <!-- HIDDEN until Sue sends real testimonials and her portfolio address.
-           To restore: uncomment these two links, replace PORTFOLIO_URL (here, in the
-           portfolio section, and in the footer), and uncomment the testimonials section.
-      <li><a href="#testimonials">Testimonials</a></li>
-      <li><a href="PORTFOLIO_URL" target="_blank" rel="noopener">Portfolio <span class="ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
-      -->
-      <li class="mobile-cta"><a href="#booking">Book a Consultation</a></li>
-    </ul>
-    <a href="#booking" class="nav-cta">Book a Consultation</a>
-  </nav>
-</header>
+{% include "header.njk" %}
 
 <main id="main">
 
@@ -141,7 +122,7 @@
       </div>
       <div class="afn-row">
         <div class="afn-logo"><img src="assets/afn-logo.png" alt="AfN Registered Associate Nutritionist logo" width="400" height="283" loading="lazy"></div>
-        <p>Registered with the <strong>Association for Nutrition (AfN)</strong><br>Registration No. 49072 · Valid until April 2027</p>
+        <p>Registered with the <strong>Association for Nutrition (AfN)</strong><br>Registered Associate Nutritionist (ANutr)</p>
       </div>
     </div>
   </div>
@@ -362,7 +343,7 @@
   </div>
 </section>
 
-<!-- BLOG -->
+<!-- BLOG: shows the three newest posts from blog/posts/ automatically -->
 <section class="section blog" id="blog">
   <div class="container">
     <div class="section-header reveal">
@@ -370,27 +351,12 @@
       <h2 class="section-title">Small habits, <em>big difference</em></h2>
     </div>
     <div class="blog-grid">
-      <article class="blog-card reveal zoom">
-        <div class="blog-icon" aria-hidden="true">🥦</div>
-        <p class="tag">Habit 01</p>
-        <h3>Always Include Fruit &amp; Veg</h3>
-        <p>Half your plate, every meal — for fibre, vitamins and lasting fullness.</p>
-        <p class="tips">Berries at breakfast · Side salad at lunch · Roasted veg at dinner</p>
-      </article>
-      <article class="blog-card reveal zoom">
-        <div class="blog-icon" aria-hidden="true">🍽️</div>
-        <p class="tag">Habits 02 &amp; 03</p>
-        <h3>Veg First, Eat Mindfully</h3>
-        <p>Starting with vegetables steadies blood sugar and helps you feel full.</p>
-        <p class="tips">Veg before rice · Phone down · Savour each bite</p>
-      </article>
-      <article class="blog-card reveal zoom">
-        <div class="blog-icon" aria-hidden="true">💧</div>
-        <p class="tag">Habits 04 &amp; 05</p>
-        <h3>Slow Down, Water First</h3>
-        <p>Your brain takes about 20 minutes to register fullness — give it time.</p>
-        <p class="tips">Chew well · Pause mid-meal · Water 10–15 mins before</p>
-      </article>
+      {%- for post in collections.posts.slice(0, 3) %}
+      {% include "post-card.njk" %}
+      {%- endfor %}
+    </div>
+    <div class="blog-more reveal">
+      <a href="/blog/" class="btn-primary">Read all articles <span class="arrow" aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
@@ -500,34 +466,7 @@
 
 </main>
 
-<footer class="site-footer">
-  <div class="container">
-    <a href="#top" class="footer-brand">
-      <span class="afn-logo"><img src="assets/afn-logo.png" alt="AfN Registered Associate Nutritionist logo" width="400" height="283" loading="lazy"></span>
-      <span class="footer-logo">Nutrition <span>with Sue</span></span>
-    </a>
-    <ul class="footer-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#ebook">Ebook</a></li>
-      <li><a href="#blog">Blog</a></li>
-      <li><a href="#food-diary">Food Diary</a></li>
-      <li><a href="#booking">Book</a></li>
-      <!-- HIDDEN until the portfolio address is known:
-      <li><a href="PORTFOLIO_URL" target="_blank" rel="noopener">Portfolio ↗</a></li>
-      -->
-      <li><a href="privacy.html">Privacy</a></li>
-    </ul>
-    <div class="footer-end">
-      <div class="footer-social">
-        <a href="https://www.instagram.com/nutritionwithsuee" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.tiktok.com/@talktosue" target="_blank" rel="noopener">TikTok</a>
-        <a href="https://www.linkedin.com/in/susan-emuze-a13748239" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
-      <p class="footer-copy">© <span id="year">2026</span> Nutrition with Sue. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
+{% include "footer.njk" %}
 
 <script src="js/main.js" defer></script>
 </body>

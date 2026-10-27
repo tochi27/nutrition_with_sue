@@ -36,133 +36,137 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // Booking: Calendly calendar, switched by the consultation picker.
-  // Paste Sue's Calendly event links between the quotes.
-  // Calendly's free plan allows one active event, so only the free call is bookable for now.
-  // A consultation with an empty link shows a message steering visitors to the free call.
-  // If Sue upgrades Calendly, her other event links are:
-  //   Initial Nutrition Assessment: https://calendly.com/nutritionwithsusan/new-meeting
-  //   1:1 Coaching Package:         https://calendly.com/nutritionwithsusan/1-1-coaching-package
-  //   Group Programme:              https://calendly.com/nutritionwithsusan/group-programme
-  var FREE_CALL = 'Free Discovery Call';
-  var CALENDLY = {
-    'Free Discovery Call': 'https://calendly.com/nutritionwithsusan/30min',
-    'Initial Nutrition Assessment': '',
-    '1:1 Coaching Package': '',
-    'Group Programme': ''
-  };
-  // Match the calendar to the site's colours; the cream background lets Calendly's card sit on the page.
-  // hide_event_type_details removes Calendly's own details panel, since the consultation cards
-  // and the "Pick a time for…" heading already show that information.
-  var CALENDLY_STYLE = 'hide_event_type_details=1&primary_color=5c7a52&text_color=2c2c2a&background_color=f9f6f0';
-
-  var options = document.querySelectorAll('.booking-option');
-  var selectedLabel = document.getElementById('selectedService');
-  var selectedMeta = document.getElementById('selectedMeta');
-  var embed = document.getElementById('calendlyEmbed');
-  var fallbackLink = document.getElementById('calendlyLink');
-  var bookingCard = document.querySelector('.booking-calendar');
-  var singleColumn = window.matchMedia('(max-width: 960px)');
-  var calendlyRequested = false;
-  var currentService = 'Free Discovery Call';
-
-  function calendlyUrl(service) {
-    var url = CALENDLY[service];
-    return url + (url.indexOf('?') === -1 ? '?' : '&') + CALENDLY_STYLE;
-  }
-
-  var hasAnyCalendly = Object.keys(CALENDLY).some(function (k) { return CALENDLY[k]; });
-
-  function showComingSoon() {
-    if (CALENDLY[FREE_CALL] && currentService !== FREE_CALL) {
-      // This service isn't bookable directly: start with the free call instead
-      embed.innerHTML =
-        '<div class="calendly-soon">' +
-          '<p class="calendly-soon-title">Start with a free discovery call</p>' +
-          '<p>We’ll talk through your goals and plan your ' + currentService + ' together. ' +
-          'It’s 20 minutes, with no commitment.</p>' +
-          '<button type="button" class="btn-primary" data-pick="' + FREE_CALL + '">Book a Free Discovery Call <span class="arrow">→</span></button>' +
-          '<a href="#contact" class="btn-ghost">Or send a question first <span>→</span></a>' +
-        '</div>';
-    } else {
-      embed.innerHTML =
-        '<div class="calendly-soon">' +
-          '<p class="calendly-soon-title">Online booking is coming soon</p>' +
-          '<p>In the meantime, send a request and Sue will get back to you to arrange a time.</p>' +
-          '<a href="#contact" class="btn-primary">Send a Request <span class="arrow">→</span></a>' +
-        '</div>';
-    }
-    fallbackLink.parentNode.hidden = true;
-  }
-
-  function showCalendar() {
-    if (!CALENDLY[currentService]) return showComingSoon();
-    fallbackLink.parentNode.hidden = false;
-    var url = calendlyUrl(currentService);
-    fallbackLink.href = CALENDLY[currentService];
-    if (!window.Calendly) return; // Still loading; the script's onload will call this again
-    embed.innerHTML = '';
-    window.Calendly.initInlineWidget({ url: url, parentElement: embed });
-  }
-
-  // Load Calendly's script only when the booking section gets close, so it doesn't slow the page
-  function loadCalendly() {
-    if (calendlyRequested) return;
-    calendlyRequested = true;
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://assets.calendly.com/assets/external/widget.css';
-    document.head.appendChild(link);
-    var script = document.createElement('script');
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    script.onload = showCalendar;
-    script.onerror = function () {
-      embed.innerHTML = '<p class="calendly-loading">The calendar couldn\'t load. Please use the link below.</p>';
+  // Only on pages with the booking calendar (not blog pages)
+  if (document.getElementById('calendlyEmbed')) (function () {
+    // Booking: Calendly calendar, switched by the consultation picker.
+    // Paste Sue's Calendly event links between the quotes.
+    // Calendly's free plan allows one active event, so only the free call is bookable for now.
+    // A consultation with an empty link shows a message steering visitors to the free call.
+    // If Sue upgrades Calendly, her other event links are:
+    //   Initial Nutrition Assessment: https://calendly.com/nutritionwithsusan/new-meeting
+    //   1:1 Coaching Package:         https://calendly.com/nutritionwithsusan/1-1-coaching-package
+    //   Group Programme:              https://calendly.com/nutritionwithsusan/group-programme
+    var FREE_CALL = 'Free Discovery Call';
+    var CALENDLY = {
+      'Free Discovery Call': 'https://calendly.com/nutritionwithsusan/30min',
+      'Initial Nutrition Assessment': '',
+      '1:1 Coaching Package': '',
+      'Group Programme': ''
     };
-    document.head.appendChild(script);
-  }
+    // Match the calendar to the site's colours; the cream background lets Calendly's card sit on the page.
+    // hide_event_type_details removes Calendly's own details panel, since the consultation cards
+    // and the "Pick a time for…" heading already show that information.
+    var CALENDLY_STYLE = 'hide_event_type_details=1&primary_color=5c7a52&text_color=2c2c2a&background_color=f9f6f0';
 
-  if (!hasAnyCalendly) {
-    showComingSoon();
-  } else if ('IntersectionObserver' in window) {
-    var bookingObserver = new IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting) {
-        loadCalendly();
-        bookingObserver.disconnect();
+    var options = document.querySelectorAll('.booking-option');
+    var selectedLabel = document.getElementById('selectedService');
+    var selectedMeta = document.getElementById('selectedMeta');
+    var embed = document.getElementById('calendlyEmbed');
+    var fallbackLink = document.getElementById('calendlyLink');
+    var bookingCard = document.querySelector('.booking-calendar');
+    var singleColumn = window.matchMedia('(max-width: 960px)');
+    var calendlyRequested = false;
+    var currentService = 'Free Discovery Call';
+
+    function calendlyUrl(service) {
+      var url = CALENDLY[service];
+      return url + (url.indexOf('?') === -1 ? '?' : '&') + CALENDLY_STYLE;
+    }
+
+    var hasAnyCalendly = Object.keys(CALENDLY).some(function (k) { return CALENDLY[k]; });
+
+    function showComingSoon() {
+      if (CALENDLY[FREE_CALL] && currentService !== FREE_CALL) {
+        // This service isn't bookable directly: start with the free call instead
+        embed.innerHTML =
+          '<div class="calendly-soon">' +
+            '<p class="calendly-soon-title">Start with a free discovery call</p>' +
+            '<p>We’ll talk through your goals and plan your ' + currentService + ' together. ' +
+            'It’s 20 minutes, with no commitment.</p>' +
+            '<button type="button" class="btn-primary" data-pick="' + FREE_CALL + '">Book a Free Discovery Call <span class="arrow">→</span></button>' +
+            '<a href="#contact" class="btn-ghost">Or send a question first <span>→</span></a>' +
+          '</div>';
+      } else {
+        embed.innerHTML =
+          '<div class="calendly-soon">' +
+            '<p class="calendly-soon-title">Online booking is coming soon</p>' +
+            '<p>In the meantime, send a request and Sue will get back to you to arrange a time.</p>' +
+            '<a href="#contact" class="btn-primary">Send a Request <span class="arrow">→</span></a>' +
+          '</div>';
       }
-    }, { rootMargin: '600px 0px' });
-    bookingObserver.observe(embed);
-  } else {
-    loadCalendly();
-  }
+      fallbackLink.parentNode.hidden = true;
+    }
 
-  function selectService(option) {
-    options.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
-    option.setAttribute('aria-pressed', 'true');
-    currentService = option.getAttribute('data-name');
-    selectedLabel.textContent = currentService;
-    selectedMeta.textContent = option.querySelector('.booking-option-tag').textContent;
-    if (hasAnyCalendly) loadCalendly();
-    showCalendar();
-  }
+    function showCalendar() {
+      if (!CALENDLY[currentService]) return showComingSoon();
+      fallbackLink.parentNode.hidden = false;
+      var url = calendlyUrl(currentService);
+      fallbackLink.href = CALENDLY[currentService];
+      if (!window.Calendly) return; // Still loading; the script's onload will call this again
+      embed.innerHTML = '';
+      window.Calendly.initInlineWidget({ url: url, parentElement: embed });
+    }
 
-  // "Book a Free Discovery Call" button inside the message switches to the free call
-  embed.addEventListener('click', function (e) {
-    var pick = e.target.closest('[data-pick]');
-    if (!pick) return;
-    selectService(document.querySelector('.booking-option[data-name="' + pick.getAttribute('data-pick') + '"]'));
-  });
+    // Load Calendly's script only when the booking section gets close, so it doesn't slow the page
+    function loadCalendly() {
+      if (calendlyRequested) return;
+      calendlyRequested = true;
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://assets.calendly.com/assets/external/widget.css';
+      document.head.appendChild(link);
+      var script = document.createElement('script');
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.async = true;
+      script.onload = showCalendar;
+      script.onerror = function () {
+        embed.innerHTML = '<p class="calendly-loading">The calendar couldn\'t load. Please use the link below.</p>';
+      };
+      document.head.appendChild(script);
+    }
 
-  options.forEach(function (option) {
-    option.addEventListener('click', function () {
-      selectService(option);
-      // On phones the calendar sits below the list, so bring it into view
-      if (singleColumn.matches) {
-        bookingCard.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-      }
+    if (!hasAnyCalendly) {
+      showComingSoon();
+    } else if ('IntersectionObserver' in window) {
+      var bookingObserver = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          loadCalendly();
+          bookingObserver.disconnect();
+        }
+      }, { rootMargin: '600px 0px' });
+      bookingObserver.observe(embed);
+    } else {
+      loadCalendly();
+    }
+
+    function selectService(option) {
+      options.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+      option.setAttribute('aria-pressed', 'true');
+      currentService = option.getAttribute('data-name');
+      selectedLabel.textContent = currentService;
+      selectedMeta.textContent = option.querySelector('.booking-option-tag').textContent;
+      if (hasAnyCalendly) loadCalendly();
+      showCalendar();
+    }
+
+    // "Book a Free Discovery Call" button inside the message switches to the free call
+    embed.addEventListener('click', function (e) {
+      var pick = e.target.closest('[data-pick]');
+      if (!pick) return;
+      selectService(document.querySelector('.booking-option[data-name="' + pick.getAttribute('data-pick') + '"]'));
     });
-  });
+
+    options.forEach(function (option) {
+      option.addEventListener('click', function () {
+        selectService(option);
+        // On phones the calendar sits below the list, so bring it into view
+        if (singleColumn.matches) {
+          bookingCard.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        }
+      });
+    });
+
+  })();
 
   // Forms: sent with EmailJS (https://www.emailjs.com), which emails each submission to Sue.
   // All three forms share one EmailJS template; see "Set up the forms" in README.md.
@@ -245,7 +249,8 @@
     });
   });
 
-  document.getElementById('year').textContent = new Date().getFullYear();
+  var yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // Count numbers up from zero, e.g. "70%+"
   function countUp(el) {
