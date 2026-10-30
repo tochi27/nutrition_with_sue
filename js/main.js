@@ -176,7 +176,7 @@
     serviceId: 'service_gcu373b',
     templateId: 'template_tfzbd2m'
   };
-  var FALLBACK = 'Sorry, something went wrong. Please try again, or email emuze.susan123@yahoo.com.';
+  var FALLBACK = 'Sorry, something went wrong. Please try again, or email nutritionwithsusan@outlook.com.';
   var SKIP_FIELDS = ['botcheck', 'consent'];
 
   // Turns the form into a readable list for the email, using each field's visible label

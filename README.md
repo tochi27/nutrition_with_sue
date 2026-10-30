@@ -94,7 +94,7 @@ The contact and newsletter forms share a single EmailJS template (the free plan 
 
      <p style="color: #777; font-size: 13px;">Sent from the Nutrition with Sue website. Reply to this email to answer {{from_name}}.</p>
      ```
-   - **To Email:** Sue's inbox, for example `emuze.susan123@yahoo.com`
+   - **To Email:** Sue's inbox, for example `nutritionwithsusan@outlook.com`
    - **From Name:** `Nutrition with Sue website`
    - **Reply To:** `{{reply_to}}`
 
@@ -128,7 +128,7 @@ Netlify is connected to the GitHub repo and builds the site on every push to `ma
 - [ ] **Testimonials:** the section is currently hidden (commented out in `index.html`, along with its menu link). Once Sue has real testimonials, shared with each client's written permission, replace the placeholder quotes and uncomment both. Fake reviews are illegal under UK consumer law and go against AfN standards.
 - [ ] **Portfolio stats:** confirm "70%+", "120+", and the other figures are accurate and can be evidenced.
 - [ ] **Privacy policy:** review `privacy.html`, confirm the retention periods, and pay the ICO data protection fee if required.
-- [ ] **Email:** consider a professional address on the custom domain (for example hello@yourdomain) instead of Yahoo.
+
 - [ ] **Custom domain (optional):** the site is live at https://nutritionwithsue.netlify.app. If Sue gets her own domain, connect it in Netlify (**Domain management**), then replace `nutritionwithsue.netlify.app` everywhere it appears: the `<head>` of `index.html` and `privacy.html`, `robots.txt`, and `sitemap.xml`.
 
 ## Later
